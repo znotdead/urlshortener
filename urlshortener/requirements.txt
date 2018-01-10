@@ -1,2 +1,4 @@
 Django==2.0.1
 pycodestyle
+graphene>=2.0
+graphene-django>=2.0
