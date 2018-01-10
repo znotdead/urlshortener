@@ -4,8 +4,10 @@ build:
 run:
 	@docker-compose run --rm -p 8000:8000 web python manage.py runserver 0.0.0.0:8000
 
-setup:
-	migrate createsuperuser
+setup: build migrate createsuperuser run
+
+createsuperuser:
+	@docker-compose run --rm web python manage.py createsuperuser
 
 migrate:
 	@docker-compose run --rm web python manage.py migrate
