@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'graphene_django',
     'shorturl',
 ]
@@ -124,3 +125,7 @@ STATIC_URL = '/static/'
 GRAPHENE = {
     'SCHEMA': 'urlshortener.schema.schema',
 }
+
+TEST_RUNNER = 'snapshottest.django.TestRunner'
+
+SITE_ID = 1

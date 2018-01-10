@@ -3,10 +3,10 @@ import graphene
 from shorturl import schema
 
 
-class Query(schema.Query, graphene.ObjectType):
-    # This class will inherit from multiple Queries
-    # as we begin to add more apps to our project
+class QueryRoot(schema.ShortURLQuery, graphene.ObjectType):
     pass
 
+class MutationRoot(schema.ShortURLMutations, graphene.ObjectType):
+    pass
 
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=QueryRoot, mutation=MutationRoot)
