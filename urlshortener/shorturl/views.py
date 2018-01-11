@@ -12,6 +12,5 @@ class ShortURLView(View):
     '''
 
     def get(self, request, code,  *args, **kwargs):
-        shorturl = ShortURL.objects.first()
         shorturl = get_object_or_404(ShortURL, code=code)
         return redirect(shorturl.long_url, permanent=False)
