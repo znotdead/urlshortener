@@ -21,16 +21,16 @@ class GetShortURL(TestCase):
             {
                 exist: getShorturl(code: "abc") {
                     longUrl
-                } 
+                }
             }
             '''))
-        
+
     def test_get_url_by_nonexists_code(self):
         self.assertMatchSnapshot(self.gc.execute('''
             {
                 nonexist: getShorturl(code: "NONEXISTS") {
                     longUrl
-                } 
+                }
             }
             '''))
 
@@ -59,27 +59,26 @@ class CreateShortURL(TestCase):
         created = self.create_shortenurl(long_url)
         self.assertEqual(len(ShortURL.objects.all()), 1)
         shorturl = ShortURL.objects.first()
-        self.assertEqual(created,
-            {'data': {
-            'createShorturl': {
-                'ok': True,
-                'shorturl': {
-                    'code': shorturl.code,
-                    'longUrl': long_url
-                },
-                'urlWithCode': 'http://localhost/{}'.format(shorturl.code)
-            }}})
+        self.assertEqual(created, {
+            'data': {
+                'createShorturl': {
+                    'ok': True,
+                    'shorturl': {
+                        'code': shorturl.code,
+                        'longUrl': long_url
+                    },
+                    'urlWithCode': 'http://localhost/{}'.format(shorturl.code)
+                }}})
 
         result = self.gc.execute('''
             {{
                 exist: getShorturl(code: "{0}") {{
                     longUrl
-                }} 
+                }}
             }}
             '''.format(shorturl.code))
-        self.assertEqual(result, 
-            {'data': {'exist': {'longUrl': long_url}}})
-                
+        self.assertEqual(result, {'data': {'exist': {'longUrl': long_url}}})
+
     def test_create_with_invalid_URL(self):
         long_url = "a"*300
         created = self.create_shortenurl(long_url)
@@ -99,7 +98,7 @@ class ShortURLTestCase(TestCase):
             shorturl2 = ShortURL(long_url='url2')
             shorturl2.save()
         self.assertNotEqual(shorturl1.code, shorturl2.code)
-    
+
     def test_redirect_shorturl(self):
         long_url = 'http://test_long_url'
         local_url = 'http://localhost:8000/'

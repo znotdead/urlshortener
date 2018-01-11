@@ -1,4 +1,5 @@
 import graphene
+
 from graphene_django.fields import DjangoConnectionField
 from graphene_django.types import DjangoObjectType
 from django.core.exceptions import ValidationError
@@ -26,13 +27,13 @@ class CreateShortURL(graphene.Mutation):
         shorturl.save()
         url_with_code = 'http://localhost/'+shorturl.code
         ok = True
-        return CreateShortURL(shorturl=shorturl, url_with_code=url_with_code, ok=ok)
-
+        return CreateShortURL(shorturl=shorturl,
+                              url_with_code=url_with_code, ok=ok)
 
 
 class ShortURLQuery(graphene.ObjectType):
     get_shorturl = graphene.Field(ShortURLType,
-                              code=graphene.String())
+                                  code=graphene.String())
 
     all_shorturls = graphene.List(ShortURLType)
 
@@ -52,5 +53,6 @@ class ShortURLQuery(graphene.ObjectType):
 
 class ShortURLMutations(graphene.ObjectType):
     create_shorturl = CreateShortURL.Field()
+
 
 schema = graphene.Schema(query=ShortURLQuery, mutation=ShortURLMutations)

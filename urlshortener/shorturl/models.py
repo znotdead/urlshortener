@@ -16,8 +16,8 @@ class ShortURL(models.Model):
     @staticmethod
     def generate_code():
         ''' Generate random code of 2-11 length'''
-        chars=string.ascii_letters + string.digits
-        size = random.choice(range(2,11))
+        chars = string.ascii_letters + string.digits
+        size = random.choice(range(2, 11))
         return ''.join(random.choice(chars) for x in range(size))
 
     def add_code(self):

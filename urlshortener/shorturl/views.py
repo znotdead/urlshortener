@@ -8,7 +8,7 @@ class ShortURLView(View):
     '''
     Redirect to original URL by code.
     Example: visiting the shortened URL http://localhost/A7dw
-        would redirect the browser to the real URL. 
+    would redirect the browser to the real URL.
     '''
 
     def get(self, request, code,  *args, **kwargs):
